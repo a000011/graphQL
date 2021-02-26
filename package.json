@@ -1,0 +1,41 @@
+{
+  "name": "rangi",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "node dist/server.js",
+    "dev": "nodemon src/server.ts",
+    "build": "tsc -p ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "encoding": "^0.1.13",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.5.0",
+    "iconv": "^3.0.0",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.1",
+    "parse5": "^6.0.1",
+    "xmldom": "^0.4.0",
+    "xmlserializer": "^0.6.1",
+    "xpath": "0.0.32"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.9",
+    "@types/graphql": "^14.5.0",
+    "@types/iconv": "^2.1.16",
+    "@types/mysql": "^2.15.17",
+    "@types/node": "^14.14.19",
+    "@types/node-fetch": "^2.5.7",
+    "@types/parse5": "^6.0.0",
+    "@types/xmldom": "^0.1.30",
+    "@types/xmlserializer": "^0.6.2",
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
