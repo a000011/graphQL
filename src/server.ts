@@ -1,16 +1,29 @@
-const express = require('express');
+import express from "express";
+import mongoose from "mongoose";
 const graphqlHTTP = require("express-graphql").graphqlHTTP;
 const schema = require("./schema/graph");
-// rest of the code remains same
+
 const app = express();
 const PORT = 8000;
 
-app.get('/', (req: any, res: any) => res.send('Express + TypeScript Server'));
+mongoose.connect('mongodb://127.0.0.1:27017/Rangs', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+  });
+mongoose.connection.once('open', ()=>{
+    console.log("DB connected");
+})//noroot228
 
 app.use("/graph", graphqlHTTP({
     schema: schema,
     graphiql: true
 }));
+
 app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running`);
 });
+
+
+//

@@ -1,26 +1,19 @@
 import { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList } from "graphql";
+import { resolve } from "path";
+//import groupSchema from "../Models/Group";
+const studentSchema = require("../Models/Student");
+const groupSchema = require("../Models/Group");
+
+
 
 class Std{
-    id: string;
-    name: string;
-    sex: string;
-    groupid: string;
+    public id: string;
+    public name: string;
+    public sex: string;
+    public groupid: string;
 }
 
-let students = [
-    { id: "1", name: "Anton", sex: "man", groupid: "1" },
-    { id: "2", name: "Sasha", sex: "woman", groupid: "2" },
-    { id: "3", name: "Anton", sex: "man", groupid: "1" },
-    { id: "4", name: "l", sex: "man", groupid: "2" },
-    { id: "5", name: "Лена", sex: "ж", groupid: "1" },
-    { id: "6", name: "кеннатий", sex: "man", groupid: "2" },
-    { id: "7", name: "Ales", sex: "woman", groupid: "2" }
-];
 
-let groups = [
-    { id: "1", name: "vp-31" },
-    { id: "2", name: "gk-11" }
-];
 
 const StudentType: GraphQLObjectType = new GraphQLObjectType({
     name: "Student",
@@ -32,11 +25,7 @@ const StudentType: GraphQLObjectType = new GraphQLObjectType({
         group:{
             type: GroupType,
             resolve(parent, args){
-                let a;
-                groups.forEach(el => {
-                    if (el.id == parent.groupid) { a = el };
-                });
-                return a;
+                return groupSchema.findById(parent.groupid);
             }
         }
     })
@@ -47,18 +36,16 @@ const GroupType: GraphQLObjectType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        sudents:{
+        students:{
             type: new GraphQLList(StudentType),
-            resolve(parent: any, args: any){
-                let a: Array<Std> = [];
-                students.forEach(el => {
-                    if (el.groupid == parent.id) { a.push(el) };
-                });
-                return a;
+            resolve(parent: any, args: any){    
+               return studentSchema.find({groupid: parent._id})
             }
         }
     })
 })
+
+
 
 const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
@@ -67,43 +54,67 @@ const RootQuery = new GraphQLObjectType({
             type: StudentType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                //эта функция рыщит по бд 
-                let a = {
-                    id: "0",
-                    name: "noname",
-                    sex: "no",
-                    groupid: "nogroup"
-                };
-                students.forEach(el => {
-                    if (el.id == args.id) { a = el };
-                });
-                return a;
+                return studentSchema.findById(args.id);
             }
         },
         Group: {
             type: GroupType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                let b = {
-                    id: "0",
-                    name: "noname"
-                }
-                groups.forEach(el => {
-                    if (el.id == args.id) { b = el };
-                });
-                return b;
+                return groupSchema.findById(args.id);                
             }
 
         },
-        Students:{
+        Students: {
             type: new GraphQLList(StudentType),
-            resolve(parent, args){
-                return students;
+            resolve(){
+                return studentSchema.find({});
+            }
+        },
+        Groups: {
+            type: new GraphQLList(GroupType),
+            resolve(){
+                return groupSchema.find({});
             }
         }
     }
 })
 
+const Mutations = new GraphQLObjectType({
+    name:"Mutation",
+    fields: {
+        AddStudent:{
+            type: StudentType,
+            args: {
+                name: {type: GraphQLString},
+                sex: {type: GraphQLString},
+                groupid: {type: GraphQLString}
+            },
+            resolve(parent, args){
+                let newStudent = new studentSchema({
+                    name: args.name,
+                    sex: args.sex,
+                    groupid: args.groupid
+                })
+                return newStudent.save();
+            }
+        },
+        AddGroup: {
+            type: GroupType,
+            args:{
+                name: {type: GraphQLString}
+            },
+            resolve(parent, args){
+                let newGroup = new groupSchema({
+                    name: args.name
+                })
+                return newGroup.save();
+            }
+        }
+    }
+});
+
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation: Mutations
 })
