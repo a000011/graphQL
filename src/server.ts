@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 const graphqlHTTP = require("express-graphql").graphqlHTTP;
-const schema = require("./schema/graph");
+const schema = require("./schema/Graph");
 
 const app = express();
 const PORT = 8000;
@@ -14,7 +14,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/Rangs', {
   });
 mongoose.connection.once('open', ()=>{
     console.log("DB connected");
-})//noroot228
+})
 
 app.use("/graph", graphqlHTTP({
     schema: schema,
