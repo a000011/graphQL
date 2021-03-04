@@ -1,6 +1,7 @@
 import { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLID, GraphQLList } from "graphql";
 const userSchema = require("../Models/Users");
 const groupSchema = require("../Models/Group");
+const rangSchema = require("../Models/Rangs");
 
 
 const UserType: GraphQLObjectType = new GraphQLObjectType({
@@ -38,8 +39,20 @@ const GroupType: GraphQLObjectType = new GraphQLObjectType({
         
     })
 })
-export {GroupType};
-export {UserType};
 
+const RangType: GraphQLObjectType = new GraphQLObjectType({
+    name: "Rang",
+    fields: () => ({
+        name: { type: GraphQLString },
+        picture:{type: GraphQLString},
+        Users:{
+            type: new GraphQLList(UserType),
+            resolve(parent, args){
+                return userSchema.find({ rang: parent._id})
+            }
+        }
+        
+    })
+})
 
-//module.exports = {GroupType, UserType};
+export {GroupType, UserType, RangType};

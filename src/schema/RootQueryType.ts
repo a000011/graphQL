@@ -1,7 +1,9 @@
 import { GraphQLObjectType, GraphQLID, GraphQLList } from "graphql";
 const userSchema = require("../Models/Users");
 const groupSchema = require("../Models/Group");
-import {GroupType, UserType} from "./GraphTypes";
+const rangSchema = require("../Models/Rangs");
+
+import {GroupType, UserType, RangType} from "./GraphTypes";
 
 const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
@@ -25,6 +27,13 @@ const RootQuery = new GraphQLObjectType({
             resolve(){
                 return userSchema.find({});                
             }
+        },
+        Rangs:{
+            type: new GraphQLList(RangType),
+            resolve(){
+                return rangSchema.find({});
+            }
+ 
         }
     }
 })

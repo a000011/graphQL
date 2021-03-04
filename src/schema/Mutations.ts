@@ -1,7 +1,8 @@
 import { GraphQLObjectType, GraphQLNonNull, GraphQLString } from "graphql";
 const userSchema = require("../Models/Users");
 const groupSchema = require("../Models/Group");
-import {GroupType, UserType} from "./GraphTypes";
+const rangSchema = require("../Models/Rangs");
+import {GroupType, RangType, UserType} from "./GraphTypes";
 
 const Mutations = new GraphQLObjectType({
     name:"Mutation",
@@ -47,7 +48,22 @@ const Mutations = new GraphQLObjectType({
                 })
                 return newUser.save();
             }
+        },
+        AddRang:{
+            type: RangType,
+            args: {
+                name: {type: GraphQLString},
+                picture: {type: GraphQLString}
+            },
+            resolve(parent, args){
+                let newRang = new rangSchema({
+                    name: args.name,
+                    picture: args.picture
+                })
+                return newRang.save();
+            }
         }
+        
     }
 });
 
