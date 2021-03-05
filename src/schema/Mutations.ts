@@ -29,7 +29,7 @@ const Mutations = new GraphQLObjectType({
                 name: { type: new GraphQLNonNull(GraphQLString) },
                 secname: { type: new GraphQLNonNull(GraphQLString) },
                 userGroup: { type: new GraphQLNonNull(GraphQLString) },
-                rang: { type: new GraphQLNonNull(GraphQLString) },
+                rank: { type: new GraphQLNonNull(GraphQLString) },
                 isAdmin: { type: new GraphQLNonNull(GraphQLString) },
                 password: { type: new GraphQLNonNull(GraphQLString) },
                 picture: { type: new GraphQLNonNull(GraphQLString) },
@@ -40,7 +40,7 @@ const Mutations = new GraphQLObjectType({
                     name: args.name,
                     secname: args.secname,
                     userGroup: args.userGroup,
-                    rang: args.rang,
+                    rank: args.rank,
                     isAdmin: args.isAdmin,
                     password: args.password,
                     picture: args.picture,
@@ -49,18 +49,18 @@ const Mutations = new GraphQLObjectType({
                 return newUser.save();
             }
         },
-        AddRang: {
+        AddRank: {
             type: RankType,
             args: {
                 name: { type: GraphQLString },
                 picture: { type: GraphQLString }
             },
             resolve(parent, args) {
-                let newRang = new rankSchema({
+                let newRank = new rankSchema({
                     name: args.name,
                     picture: args.picture
                 })
-                return newRang.save();
+                return newRank.save();
             }
         }
 

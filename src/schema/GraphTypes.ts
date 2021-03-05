@@ -10,7 +10,7 @@ const UserType: GraphQLObjectType = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         secname: { type: new GraphQLNonNull(GraphQLString) },
         userGroup: { type: new GraphQLNonNull(GraphQLString) },
-        rang: { type: new GraphQLNonNull(GraphQLString) },
+        rank: { type: new GraphQLNonNull(GraphQLString) },
         isAdmin: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
         picture: { type: new GraphQLNonNull(GraphQLString) },
@@ -41,7 +41,7 @@ const GroupType: GraphQLObjectType = new GraphQLObjectType({
 })
 
 const RankType: GraphQLObjectType = new GraphQLObjectType({
-    name: "Rang",
+    name: "Rank",
     fields: () => ({
         name: { type: GraphQLString },
         picture: { type: GraphQLString },

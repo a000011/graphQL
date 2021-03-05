@@ -1,8 +1,8 @@
 import { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList } from "graphql";
 const userSchema = require("../Models/Users");
 const groupSchema = require("../Models/Group");
-import {GroupType, UserType} from "./GraphTypes";
-import {RootQuery} from "./RootQueryType";
+import { GroupType, UserType } from "./GraphTypes";
+import { RootQuery } from "./RootQueryType";
 import { Mutations } from "./Mutations";
 
 module.exports = new GraphQLSchema({
@@ -23,6 +23,6 @@ module.exports = new GraphQLSchema({
 //     name
 //     secname
 //     userGroup
-    
+
 //   }
 // }

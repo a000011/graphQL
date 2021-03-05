@@ -28,7 +28,7 @@ const RootQuery = new GraphQLObjectType({
                 return userSchema.find({});
             }
         },
-        Rangs: {
+        Ranks: {
             type: new GraphQLList(RankType),
             resolve() {
                 return rankSchema.find({});
