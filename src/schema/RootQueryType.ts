@@ -2,7 +2,6 @@ import { GraphQLObjectType, GraphQLID, GraphQLList } from "graphql";
 const userSchema = require("../Models/Users");
 const groupSchema = require("../Models/Group");
 const rankSchema = require("../Models/Ranks");
-
 import { GroupType, UserType, RankType } from "./GraphTypes";
 
 const RootQuery = new GraphQLObjectType({

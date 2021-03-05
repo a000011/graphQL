@@ -12,7 +12,7 @@ class MongoDb {
     }
     connect_once() {
         mongoose.connection.once('open', () => {
-            console.log("🤠 DB connected");
+            console.log("[server]: DB connected");
         })
     }
 }

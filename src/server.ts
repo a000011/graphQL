@@ -15,5 +15,5 @@ app.use("/graph", graphqlHTTP({
 }));
 
 app.listen(PORT, () => {
-    console.log("😎 [server]: Server is working");
+    console.log("[server]: Server is working");
 });

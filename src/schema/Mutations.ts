@@ -59,8 +59,60 @@ const Mutations = new GraphQLObjectType({
                 let newRank = new rankSchema({
                     name: args.name,
                     picture: args.picture
-                })
+                });
                 return newRank.save();
+            }
+        },
+        UpdateRank:{
+            type: RankType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLString) },
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                picture: { type: new GraphQLNonNull(GraphQLString) }
+            },
+            async resolve(parent, args) {
+                await rankSchema.updateOne({_id: args.id }, { name: args.name, picture: args.picture });
+                return rankSchema.findById(args.id);
+            }
+        },
+        UpdateGroup: {
+            type: GroupType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLString) },
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                picture: { type: new GraphQLNonNull(GraphQLString) },
+                about: { type: new GraphQLNonNull(GraphQLString) }
+            },
+            async resolve(parent, args) {
+                await groupSchema.updateOne({_id: args.id},{name: args.name, picture: args.picture, about: args.about});
+                return groupSchema.findById(args.id);
+            }
+        },
+        UpdateUser: {
+            type: UserType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLString) },
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                secname: { type: new GraphQLNonNull(GraphQLString) },
+                userGroup: { type: new GraphQLNonNull(GraphQLString) },
+                rank: { type: new GraphQLNonNull(GraphQLString) },
+                isAdmin: { type: new GraphQLNonNull(GraphQLString) },
+                password: { type: new GraphQLNonNull(GraphQLString) },
+                picture: { type: new GraphQLNonNull(GraphQLString) },
+                about: { type: GraphQLString },
+            },
+            async resolve(parent, args) {                
+                await userSchema.updateOne({_id: args.id},{
+                    name: args.name,
+                    secname: args.secname,
+                    userGroup: args.userGroup,
+                    rank: args.rank,
+                    isAdmin: args.isAdmin,
+                    password: args.password,
+                    picture: args.picture,
+                    about: args.about
+                });
+                return userSchema.findById(args.id);
             }
         }
 
