@@ -7,7 +7,7 @@ const userSchema = new schema({
     name: String,
     secname: String,
     userGroup: String,
-    rang: String,
+    rank: String,
     isAdmin: String,
     password: String,
     picture: String,

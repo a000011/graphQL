@@ -6,14 +6,14 @@ const schema = require("./schema/Graph");
 const app = express();
 const PORT = 8000;
 
-mongoose.connect('mongodb://127.0.0.1:27017/Rangs', {
+mongoose.connect('mongodb+srv://root:pussieater228@graphql.gg5vz.mongodb.net/graphql', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-  });
-mongoose.connection.once('open', ()=>{
-    console.log("DB connected");
+    // useFindAndModify: false,
+    // useCreateIndex: true
+});
+mongoose.connection.once('open', () => {
+    console.log("🤠 DB connected");
 })
 
 app.use("/graph", graphqlHTTP({
@@ -22,5 +22,5 @@ app.use("/graph", graphqlHTTP({
 }));
 
 app.listen(PORT, () => {
-    console.log(`⚡️[server]: Server is running`);
+    console.log("😎 [server]: Server is working");
 });

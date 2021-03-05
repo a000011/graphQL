@@ -1,9 +1,9 @@
 import { GraphQLObjectType, GraphQLID, GraphQLList } from "graphql";
 const userSchema = require("../Models/Users");
 const groupSchema = require("../Models/Group");
-const rangSchema = require("../Models/Rangs");
+const rankSchema = require("../Models/Ranks");
 
-import {GroupType, UserType, RangType} from "./GraphTypes";
+import { GroupType, UserType, RankType } from "./GraphTypes";
 
 const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
@@ -12,30 +12,30 @@ const RootQuery = new GraphQLObjectType({
             type: GroupType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                return groupSchema.findById(args.id);                
+                return groupSchema.findById(args.id);
             }
 
         },
         Groups: {
             type: new GraphQLList(GroupType),
-            resolve(){
+            resolve() {
                 return groupSchema.find({});
             }
         },
-        Users:{
+        Users: {
             type: new GraphQLList(UserType),
-            resolve(){
-                return userSchema.find({});                
+            resolve() {
+                return userSchema.find({});
             }
         },
-        Rangs:{
-            type: new GraphQLList(RangType),
-            resolve(){
-                return rangSchema.find({});
+        Rangs: {
+            type: new GraphQLList(RankType),
+            resolve() {
+                return rankSchema.find({});
             }
- 
+
         }
     }
 })
 
-export {RootQuery};
+export { RootQuery };
