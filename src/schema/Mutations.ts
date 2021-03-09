@@ -5,7 +5,7 @@ const rankSchema = require("../Models/Ranks");
 import { GroupType, RankType, UserType } from "./GraphTypes";
 
 const Mutations = new GraphQLObjectType({
-    name: "Mutation",
+    name: "Mutations",
     fields: {
         AddGroup: {
             type: GroupType,

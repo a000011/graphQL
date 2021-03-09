@@ -7,6 +7,7 @@ const rankSchema = require("../Models/Ranks");
 const UserType: GraphQLObjectType = new GraphQLObjectType({
     name: "Student",
     fields: () => ({
+        id: { type: GraphQLID },
         name: { type: new GraphQLNonNull(GraphQLString) },
         secname: { type: new GraphQLNonNull(GraphQLString) },
         userGroup: { type: new GraphQLNonNull(GraphQLString) },
@@ -27,6 +28,7 @@ const UserType: GraphQLObjectType = new GraphQLObjectType({
 const GroupType: GraphQLObjectType = new GraphQLObjectType({
     name: "Group",
     fields: () => ({
+        id: { type: GraphQLID },
         name: { type: GraphQLString },
         picture: { type: GraphQLString },
         about: { type: GraphQLString },
@@ -43,6 +45,7 @@ const GroupType: GraphQLObjectType = new GraphQLObjectType({
 const RankType: GraphQLObjectType = new GraphQLObjectType({
     name: "Rank",
     fields: () => ({
+        id: { type: GraphQLID },
         name: { type: GraphQLString },
         picture: { type: GraphQLString },
         Users: {

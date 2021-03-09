@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 const schema = mongoose.Schema;
 
-const groupSchema = new schema({
-    id: String,
+const groupSchema = new schema({    
     name: String,
     picture: String,
     about: String
