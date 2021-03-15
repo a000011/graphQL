@@ -1,8 +1,12 @@
 import { GraphQLObjectType, GraphQLNonNull, GraphQLString } from "graphql";
-const userSchema = require("../Models/Users");
-const groupSchema = require("../Models/Group");
-const rankSchema = require("../Models/Ranks");
-import { RankUpdateInput, RankInput, GroupUpdateInput, GroupInput, GroupType, RankType, UserType, UserInput, UserUpdateInput } from "./GraphTypes";
+
+import {User} from "../entity/User";
+import {Group} from "../entity/Group";
+import {Rank} from "../entity/Rank";
+
+
+
+import {  RankInput,  GroupInput, GroupType, RankType, UserType, UserInput,  } from "./GraphTypes";
 
 const Mutations = new GraphQLObjectType({
     name: "Mutations",
@@ -12,9 +16,8 @@ const Mutations = new GraphQLObjectType({
             args: {
                 Group:{type:GroupInput}
             },
-            resolve(parent, args) {
-                let newGroup = new groupSchema(args.Group)
-                return newGroup.save();
+            async resolve(parent, args) {
+                return await Group.create(args.Group as Group).save()
             }
         },
         AddUser: {
@@ -22,9 +25,8 @@ const Mutations = new GraphQLObjectType({
             args: {
                 User: { type: UserInput }
             },
-            resolve(parent, args) {
-                let newUser = new userSchema(args.User)
-                return newUser.save();
+            async resolve(parent, args) {
+                return await User.create(args.User as User).save()
             }
         },
         AddRank: {
@@ -32,39 +34,35 @@ const Mutations = new GraphQLObjectType({
             args: {
                 Rank:{type:RankInput}
             },
-            resolve(parent, args) {
-                let newRank = new rankSchema(args.Rank);
-                return newRank.save();
+            async resolve(parent, args) {
+                return await Rank.create(args.Rank as Rank).save()
             }
         },
         UpdateRank:{
             type: RankType,
             args: { 
-                Rank:{type:RankUpdateInput}
+                Rank:{type:RankInput}
             },
             async resolve(parent, args) {
-                await rankSchema.updateOne({_id: args.Rank.id },args.Rank);
-                return rankSchema.findById(args.Rank.id);
+                
             }
         },
         UpdateGroup: {
             type: GroupType,
             args: {
-                Group: {type: GroupUpdateInput}
+                Group: {type: GroupInput}
             },
             async resolve(parent, args) {
-                await groupSchema.updateOne({_id: args.Group.id},args.Group);
-                return groupSchema.findById(args.Group.id);
+               
             }
         },
         UpdateUser: {
             type: UserType,
             args: {
-                User: { type: UserUpdateInput }
+                User: { type: UserInput }
             },
             async  resolve(parent, args) {
-                await userSchema.updateOne({_id: args.User.id},args.User);
-                return userSchema.findById(args.User.id);
+               
             }
         }
 

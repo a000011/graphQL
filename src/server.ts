@@ -1,13 +1,11 @@
-import express from "express";
+const express = require("express");
 const graphqlHTTP = require("express-graphql").graphqlHTTP;
 const schema = require("./schema/Graph");
-import Mongo from "./DataBase/Mongo"
+import { createConnection } from "typeorm";
 
 const app = express();
 const PORT = 8000;
-
-Mongo.connect();
-Mongo.connect_once();
+createConnection();
 
 app.use("/graph", graphqlHTTP({
     schema: schema,
