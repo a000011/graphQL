@@ -60,7 +60,7 @@ const RankType: GraphQLObjectType = new GraphQLObjectType({
 
 const UserInput = new GraphQLInputObjectType({
     name: "UserInput",
-    fields:{
+    fields: {
         name: { type: GraphQLString },
         secname: { type: new GraphQLNonNull(GraphQLString) },
         userGroup: { type: new GraphQLNonNull(GraphQLString) },
@@ -73,8 +73,8 @@ const UserInput = new GraphQLInputObjectType({
 })
 const UserUpdateInput = new GraphQLInputObjectType({
     name: "UserUpdateInput",
-    fields:{
-        id:{type:GraphQLID},
+    fields: {
+        id: { type: GraphQLID },
         name: { type: GraphQLString },
         secname: { type: new GraphQLNonNull(GraphQLString) },
         userGroup: { type: new GraphQLNonNull(GraphQLString) },
@@ -87,34 +87,34 @@ const UserUpdateInput = new GraphQLInputObjectType({
 })
 const GroupInput = new GraphQLInputObjectType({
     name: "GroupInput",
-    fields:{
+    fields: {
         name: { type: GraphQLString },
-        picture: { type: new GraphQLNonNull(GraphQLString) },
+        picture: { type: GraphQLString },
         about: { type: GraphQLString }
     }
 })
 const GroupUpdateInput = new GraphQLInputObjectType({
     name: "GroupUpdateInput",
-    fields:{
-        id:{type:GraphQLID},
+    fields: {
+        id: { type: GraphQLID },
         name: { type: GraphQLString },
-        picture: { type: new GraphQLNonNull(GraphQLString) },
+        picture: { type: GraphQLString },
         about: { type: GraphQLString }
     }
 })
 const RankInput = new GraphQLInputObjectType({
     name: "rankInput",
-    fields:{
+    fields: {
         name: { type: GraphQLString },
-        picture: { type: new GraphQLNonNull(GraphQLString) }
+        picture: { type: GraphQLString }
     }
 })
 const RankUpdateInput = new GraphQLInputObjectType({
     name: "rankUpdateInput",
-    fields:{
-        id:{type:GraphQLID},
+    fields: {
+        id: { type: GraphQLID },
         name: { type: GraphQLString },
-        picture: { type: new GraphQLNonNull(GraphQLString) }
+        picture: { type: GraphQLString }
     }
 })
 export { RankUpdateInput, RankInput, GroupUpdateInput, GroupType, UserType, RankType, UserInput, UserUpdateInput, GroupInput };

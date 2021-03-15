@@ -12,22 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "config": "^3.3.4",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "encoding": "^0.1.13",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.5.0",
-    "iconv": "^3.0.0",
-    "mongodb": "^3.6.3",
+    "mongodb": "^3.6.4",
     "mongoose": "^5.11.18",
-    "mysql": "^2.18.1",
-    "node-fetch": "^2.6.1",
-    "nodemon": "^2.0.7",
-    "parse5": "^6.0.1",
-    "xmldom": "^0.4.0",
-    "xmlserializer": "^0.6.1",
-    "xpath": "0.0.32"
+    "nodemon": "^2.0.7"
   },
   "devDependencies": {
     "@types/config": "0.0.38",
