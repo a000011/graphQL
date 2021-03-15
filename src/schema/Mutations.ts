@@ -2,7 +2,7 @@ import { GraphQLObjectType, GraphQLNonNull, GraphQLString } from "graphql";
 const userSchema = require("../Models/Users");
 const groupSchema = require("../Models/Group");
 const rankSchema = require("../Models/Ranks");
-import { GroupType, RankType, UserType } from "./GraphTypes";
+import { RankUpdateInput, RankInput, GroupUpdateInput, GroupInput, GroupType, RankType, UserType, UserInput, UserUpdateInput } from "./GraphTypes";
 
 const Mutations = new GraphQLObjectType({
     name: "Mutations",
@@ -10,109 +10,61 @@ const Mutations = new GraphQLObjectType({
         AddGroup: {
             type: GroupType,
             args: {
-                name: { type: new GraphQLNonNull(GraphQLString) },
-                picture: { type: new GraphQLNonNull(GraphQLString) },
-                about: { type: new GraphQLNonNull(GraphQLString) }
+                Group:{type:GroupInput}
             },
             resolve(parent, args) {
-                let newGroup = new groupSchema({
-                    name: args.name,
-                    picture: args.picture,
-                    about: args.about
-                })
+                let newGroup = new groupSchema(args.Group)
                 return newGroup.save();
             }
         },
         AddUser: {
             type: UserType,
             args: {
-                name: { type: new GraphQLNonNull(GraphQLString) },
-                secname: { type: new GraphQLNonNull(GraphQLString) },
-                userGroup: { type: new GraphQLNonNull(GraphQLString) },
-                rank: { type: new GraphQLNonNull(GraphQLString) },
-                isAdmin: { type: new GraphQLNonNull(GraphQLString) },
-                password: { type: new GraphQLNonNull(GraphQLString) },
-                picture: { type: new GraphQLNonNull(GraphQLString) },
-                about: { type: GraphQLString },
+                User: { type: UserInput }
             },
             resolve(parent, args) {
-                let newUser = new userSchema({
-                    name: args.name,
-                    secname: args.secname,
-                    userGroup: args.userGroup,
-                    rank: args.rank,
-                    isAdmin: args.isAdmin,
-                    password: args.password,
-                    picture: args.picture,
-                    about: args.about
-                })
+                let newUser = new userSchema(args.User)
                 return newUser.save();
             }
         },
         AddRank: {
             type: RankType,
             args: {
-                name: { type: GraphQLString },
-                picture: { type: GraphQLString }
+                Rank:{type:RankInput}
             },
             resolve(parent, args) {
-                let newRank = new rankSchema({
-                    name: args.name,
-                    picture: args.picture
-                });
+                let newRank = new rankSchema(args.Rank);
                 return newRank.save();
             }
         },
         UpdateRank:{
             type: RankType,
-            args: {
-                id: { type: new GraphQLNonNull(GraphQLString) },
-                name: { type: new GraphQLNonNull(GraphQLString) },
-                picture: { type: new GraphQLNonNull(GraphQLString) }
+            args: { 
+                Rank:{type:RankUpdateInput}
             },
             async resolve(parent, args) {
-                await rankSchema.updateOne({_id: args.id }, { name: args.name, picture: args.picture });
-                return rankSchema.findById(args.id);
+                await rankSchema.updateOne({_id: args.Rank.id },args.Rank);
+                return rankSchema.findById(args.Rank.id);
             }
         },
         UpdateGroup: {
             type: GroupType,
             args: {
-                id: { type: new GraphQLNonNull(GraphQLString) },
-                name: { type: new GraphQLNonNull(GraphQLString) },
-                picture: { type: new GraphQLNonNull(GraphQLString) },
-                about: { type: new GraphQLNonNull(GraphQLString) }
+                Group: {type: GroupUpdateInput}
             },
             async resolve(parent, args) {
-                await groupSchema.updateOne({_id: args.id},{name: args.name, picture: args.picture, about: args.about});
-                return groupSchema.findById(args.id);
+                await groupSchema.updateOne({_id: args.Group.id},args.Group);
+                return groupSchema.findById(args.Group.id);
             }
         },
         UpdateUser: {
             type: UserType,
             args: {
-                id: { type: new GraphQLNonNull(GraphQLString) },
-                name: { type: new GraphQLNonNull(GraphQLString) },
-                secname: { type: new GraphQLNonNull(GraphQLString) },
-                userGroup: { type: new GraphQLNonNull(GraphQLString) },
-                rank: { type: new GraphQLNonNull(GraphQLString) },
-                isAdmin: { type: new GraphQLNonNull(GraphQLString) },
-                password: { type: new GraphQLNonNull(GraphQLString) },
-                picture: { type: new GraphQLNonNull(GraphQLString) },
-                about: { type: GraphQLString },
+                User: { type: UserUpdateInput }
             },
-            async resolve(parent, args) {                
-                await userSchema.updateOne({_id: args.id},{
-                    name: args.name,
-                    secname: args.secname,
-                    userGroup: args.userGroup,
-                    rank: args.rank,
-                    isAdmin: args.isAdmin,
-                    password: args.password,
-                    picture: args.picture,
-                    about: args.about
-                });
-                return userSchema.findById(args.id);
+            async  resolve(parent, args) {
+                await userSchema.updateOne({_id: args.User.id},args.User);
+                return userSchema.findById(args.User.id);
             }
         }
 
